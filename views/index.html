@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>LogIn Habs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="plugins/flexslider/flexslider.css">
+    <link id="theme-style" rel="stylesheet" href="css/styles.css">
+    <script src="js/index.js"></script>
+
+</head> 
+
+<body class="login-page access-page has-full-screen-bg">
+    <div class="upper-wrapper">
+       
+        
+        <!-- ******Login Section****** --> 
+        <section class="login-section access-section section">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">     
+                        <div class="form-box-inner">
+                            <h2 class="title text-center">Log in Habs</h2>                 
+                            <div class="row">
+                                <div class="form-container" style="margin-left:20%;margin-right:20%">
+                                    <div class="login-form" >              
+                                        <div class="form-group email">
+                                            <label class="sr-only" for="login-email">ESPOL Username</label>
+                                            <input id="login_user"  class="form-control login-email" placeholder="ESPOL Username" name="user">
+                                        </div><!--//form-group-->
+                                        
+                                        <div class="form-group password">
+                                            <label class="sr-only" for="login-password">Password</label>
+                                            <input id="login_password" type="password" class="form-control login-password" placeholder="Password" name="pass">
+                                        </div><!--//form-group-->
+                                        <input type="submit"  class="btn btn-block btn-cta-primary" value="Iniciar Sesi&oacute;n" onclick="login();" />
+                                         
+                                    </div>
+                                </div><!--//form-container-->
+            
+                            </div><!--//row-->
+                        </div><!--//form-box-inner-->
+                    </div><!--//form-box-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </section><!--//contact-section-->
+    </div><!--//upper-wrapper-->
+    
+    {% include './footer.html' %}
+    
+
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="plugins/flexslider/jquery.flexslider-min.js"></script> 
+    <script type="text/javascript" src="js/main.js"></script>
+    
+            
+</body>
+</html> 

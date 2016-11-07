@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Habs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="plugins/flexslider/flexslider.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="css/estaciones.css">
+    <!-- <link rel="stylesheet" href="css/estacionMeteorologica.css">-->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBdfOhkWeCWolmN5xUvM_OtArSXcE1DD8E"></script>
+    <script src="js/estaciones.js"></script>
+
+</head> 
+
+<body class="home-page">   
+    
+    
+    {% include './header.html' %}
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 " id="map-canvas">
+                </div>
+                <div id="listLocalitys"class="col-md-5 ">
+                    <h1>Estaciones Meteorologicas </h1>
+                    <ul id="listEstaciones">
+                        
+                    </ul>
+                </div>
+            </div>
+    </div>
+
+    
+            
+</body>
+<!-- Javascript -->          
+    <script type="text/javascript" src="plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="plugins/flexslider/jquery.flexslider-min.js"></script> 
+    <script type="text/javascript" src="js/main.js"></script>
+</html> 

@@ -1,0 +1,21 @@
+.elementoUsuario div, .headerUsuario div{
+	padding: 5px;
+	
+}
+.elementoUsuario{
+	border-bottom: solid;
+}
+
+#btnAddUser{
+	margin: 15px;
+}
+
+.btn, .user{
+	margin: 5px;
+}
+
+.title{
+	padding: 20px;
+}
+
+

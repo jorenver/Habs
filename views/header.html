@@ -1,0 +1,41 @@
+<!-- ******HEADER****** --> 
+    <header id="header" class="header navbar-fixed-top">  
+        <div class="container">       
+            
+            <nav class="main-nav navbar-right" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button><!--//nav-toggle-->
+                </div><!--//navbar-header-->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item"><a href="/inicio">Inicio</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Datos <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/estaciones">Meteorologicos</a></li>
+                                <li><a href="#">Espaciales</a></li>                   
+                            </ul>                            
+                        </li><!--//dropdown--> 
+                        {% if permiso == 1 %}
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Configuraci&oacute;n<i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/configurarUsuarios">Usuarios</a></li>
+                                    <li><a href="/configuraInicio">Pagina Inico</a></li>                   
+                                </ul>                            
+                            </li><!--//dropdown-->   
+                         {% endif %}
+                        <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="/logout">Cerrar Sesi&oacute;n</a></li>
+                    </ul><!--//nav-->
+                </div><!--//navabr-collapse-->
+            </nav><!--//main-nav-->                     
+        </div><!--//container-->
+    </header><!--//header-->
+
+
+ 

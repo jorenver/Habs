@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Habs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="plugins/flexslider/flexslider.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modificarInicio.css">
+    <link rel="stylesheet" href="css/usuarios.css">
+    <script src="js/usuarios.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head> 
+
+<body class="home-page">   
+    
+    
+    {% include './header.html' %}
+
+    <div class="modal fade" id="ModalEliminar" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Eliminar</h4>
+            </div>
+            <div class="modal-body">
+              <p>Esta seguro que desea Eliminar este usuario?</p>
+            </div>
+            <div class="modal-footer">
+              <button id="btnCancelar" type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelarEliminacion();">Cancelar</button>
+              <button id="btnElimnar" type="button" class="btn btn-success" data-dismiss="modal" onclick="removerUsuario();">Eliminar</button>
+            </div>
+          </div>
+        </div>
+    </div> 
+    
+    <div class="sections-wrapper"> 
+
+
+     
+        <!-- ******Why Section****** -->
+        <section id="why" class="section why">
+            
+            <div class="container" id="principal"> 
+                <button type="button" class="btn btn-success" id="btnAddUser" onclick="clikNuevoUsuario();">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Usuario
+                </button>
+                <h2 class="title text-center">Usuarios</h2>
+                
+                
+                <div class="container" id="users"> </div><!--//container-->
+            </div><!--//container-->
+
+            <div class="row">
+                <div id="usuarioDatos" class="container hide col-md-8 col-md-offset-2">
+                    <div class="row main">
+                        <div class="panel-heading">
+                           <div class="panel-title text-center">
+                                <h1 class="title">Usuario</h1>
+                            </div>
+                        </div> 
+                        <div class="main-center"> 
+
+                        <div class="form-group">
+                                <label for="username" class="cols-sm-2 control-label">Usuario Espol</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="username"  placeholder="Ingrese Usuario Espol" id="txtUserName"/>
+                                    </div>
+                                </div>
+                            </div>
+                              
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Nombres</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="name"  placeholder="Ingrese Nombres" id="txtNombres"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Apellidos</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="name"   placeholder="Ingrese Apellidos" id="txtApellidos"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label">Email</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="email"   placeholder="Ingrese Email" id="txtEmail"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                <label for="password" class="cols-sm-2 control-label">Contrase&ntilde;a</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" name="password"  placeholder="Ingrese Contrase&ntilde;a" id="txtPass1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm" class="cols-sm-2 control-label">Confirmar Contrase&ntilde;a</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" name="confirm"  placeholder="Confimar Contrase&ntilde;a" id="txtPass2"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm" class="cols-sm-2 control-label">Permisos</label>
+                                <div class="input-group cols-sm-10">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-link" aria-hidden="true"></i></span>
+                                    
+                                    <select class="form-control" id="selectPermiso">
+                                        <option>Usuario</option>
+                                        <option>Administrador</option>
+                                    </select>
+                                </div>
+                            </div>
+ 
+                            <div class="row"> 
+                                <div class="form-group col-md-2 col-md-offset-4">
+                                    <button type="button" class="btn btn-success" id="btnAceptar">Aceptar</button>
+                                </div>
+                                <div class="form-group col-md-2 ">
+                                    <button type="button" class="btn btn-danger" onclick="mostrarUsuarios();">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section><!--//why-->  
+
+        
+    </div><!--//section-wrapper-->
+    
+  {% include './footer.html' %}
+    
+    
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="plugins/flexslider/jquery.flexslider-min.js"></script>     
+    <script type="text/javascript" src="js/main.js"></script>
+
+    
+            
+</body>
+</html> 

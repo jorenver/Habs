@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Habs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="plugins/flexslider/flexslider.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/estacionMeteorologica.css">
+    <script src="js/Chart.js"></script>
+    <script src="js/estacionMeteorologica.js"></script>
+
+</head> 
+
+<body class="home-page">
+    
+    {% include './header.html' %}
+    
+    <div id="continer-estacion" class="sections-wrapper">   
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 sidebar">
+                    <button type="button" class="btn btn-success" id="btnDescargar" onclick="obtenerDatosEstacion();">
+                        <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Descargar Datos
+                    </button>
+
+                    <h3 class="title text-center">Variables</h3>
+                    <ul id="botones">
+                        
+                    </ul>
+                </div>
+                <div class="col-md-8 col-md-offset-3">
+                    <h2 class="title text-center">Estacion 1</h2>
+
+
+                    <div class="container-fluid oculto" id="charts_wrapper">
+                        
+                        <div class="row">
+                            <div class="col-md-12 text-center" id="containerMediasNormales" >
+                                <h3 class="title text-center">Medias Normales</h3>
+                                
+                            </div>
+
+                        </div>
+                        <hr/>
+
+                        <div class="row">
+
+                            
+                            <div class="row" id="year_content" >
+                                <div class="col-md-6 text-right">
+                                    <h3 style="margin: 2px;">Año:<h3>
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="dropup">
+                                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="anioSelected">
+                                        .... <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" id="dropDownAnio">
+                                      </ul>
+                                    </div>
+                                </div> 
+                            </div>
+                            
+                            <div class="col-md-12 text-center oculto" id="containerMediasMensuales" >
+                                <h3 class="title text-center">Medias Mensuales</h3>
+                                
+                            </div>
+                            <div class="col-md-12 text-center oculto" id="containerAnomalias" >
+                                <h3 class="title text-center">Anomalias</h3>
+                                
+                            </div>
+                             
+                        </div>
+
+                    </div>
+                  
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    
+            
+</body>
+<!-- Javascript -->          
+    <script type="text/javascript" src="plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="plugins/flexslider/jquery.flexslider-min.js"></script> 
+    <script type="text/javascript" src="js/main.js"></script>
+</html> 
