@@ -1,10 +1,18 @@
-var idEstacion=1;
 var labelsMeses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 var variables=null;
 var Datos=null;
 var variable=null;
 var mediasNormales=null;
 //parseFloat(Datos[i][variable].replace(",", "."));
+
+function mostrarInformacionEstacion(event){
+	infoTitle.innerHTML="Informacion: "+informacionEstacion.descripcion;
+	infoContainer.innerHTML="<p> Codigo: "+informacionEstacion.code +"</p>"
+							+"<p> Nombre: "+informacionEstacion.descripcion +"</p>"
+							+"<p> Latitud: "+informacionEstacion.point.lat +"</p>"
+							+"<p> Longitud: "+informacionEstacion.point.lng +"</p>"
+	$("#ModalInformacion").modal();
+}
 
 function ocultar(id){
 	$('#'+id).removeClass('visible');
@@ -177,6 +185,10 @@ function dibujarGrafica(canvas, datos,etiquetas){
 
 function mostrarVariables(){
 	botones.innerHTML="";
+	boton=document.createElement("li");
+	boton.innerHTML="Comparar variables";
+	boton.setAttribute("onclick","mostarCompararVariables(event);");
+	botones.appendChild(boton);
 	for (var i = 0; i < variables.length; i++) {
 		boton=document.createElement("li");
 		boton.innerHTML=variables[i].split("_").join(" ");
@@ -195,7 +207,7 @@ function procesarVariables(event){
 }
 
 function obtenerVariables(){
-	var url = "/getVariablesMeteorologicas";
+	var url = "/getVariablesMeteorologicas?id="+idEstacion;
 	var request = new XMLHttpRequest();
 	request.addEventListener('load',procesarVariables, false);
 	request.open("GET",url, true);
@@ -203,6 +215,7 @@ function obtenerVariables(){
 }
 
 function inicializar(){
+	console.log('Id Estacion: '+idEstacion)
     obtenerVariables();   
 }
 

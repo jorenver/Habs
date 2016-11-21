@@ -13,7 +13,7 @@ module.exports = function(app){
 	app.get('/logout',ControllerIndex.logout)
 	//ControllerDatosMeteorologicos
 	app.get('/estacion', ControllerDatosMeteorologicos.getEstacion);
-	app.get('/getLocality', ControllerDatosMeteorologicos.getLocality);
+	app.get('/getLocalities', ControllerDatosMeteorologicos.getLocalities);
 	app.get('/getDataEstacion', ControllerDatosMeteorologicos.getDataEstacion);
 	app.get('/getVariablesMeteorologicas', ControllerDatosMeteorologicos.getVariablesMeteorologicas);
 	app.get('/estaciones', ControllerDatosMeteorologicos.getEstaciones);

@@ -23,12 +23,40 @@
     <link rel="stylesheet" href="css/estacionMeteorologica.css">
     <script src="js/Chart.js"></script>
     <script src="js/estacionMeteorologica.js"></script>
+    <script>
+        var idEstacion={{idLocality}};
+        var informacionEstacion={
+                idLocality:{{idLocality}},
+                code:"{{code}}",
+                descripcion:"{{descripcion}}",
+                point:{
+                lat:{{point.lat}},
+                lng:{{point.lng}}
+                }
+        }
+    </script>
+    
+    
 
 </head> 
 
 <body class="home-page">
     
     {% include './header.html' %}
+
+    <div class="modal fade" id="ModalInformacion" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4  id="infoTitle" class="modal-title text-center"></h4>
+            </div>
+            <div id="infoContainer" class="modal-body">
+              
+            </div>
+          </div>
+        </div>
+    </div> 
     
     <div id="continer-estacion" class="sections-wrapper">   
         <div class="container-fluid">
@@ -37,6 +65,9 @@
                     <button type="button" class="btn btn-success" id="btnDescargar" onclick="obtenerDatosEstacion();">
                         <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Descargar Datos
                     </button>
+                    <button type="button" class="btn btn-primary" id="btnDescargar" onclick="mostrarInformacionEstacion(event);">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Informacion
+                    </button>
 
                     <h3 class="title text-center">Variables</h3>
                     <ul id="botones">
@@ -44,7 +75,7 @@
                     </ul>
                 </div>
                 <div class="col-md-8 col-md-offset-3">
-                    <h2 class="title text-center">Estacion 1</h2>
+                    <h2 class="title text-center">{{code}}: {{descripcion}} </h2>
 
 
                     <div class="container-fluid oculto" id="charts_wrapper">
@@ -70,7 +101,7 @@
                                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="anioSelected">
                                         .... <span class="caret"></span>
                                       </button>
-                                      <ul class="dropdown-menu" id="dropDownAnio">
+                                      <ul class="dropdown-menu scrollable-menu" id="dropDownAnio">
                                       </ul>
                                     </div>
                                 </div> 
