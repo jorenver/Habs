@@ -1,6 +1,4 @@
 var pg = require('pg');
-var ReadWriteLock = require('rwlock');
-var lock = new ReadWriteLock();
 var conString = "postgres://postgres:12345@localhost:5432/habs";
 var variables=["max_air_temperature","min_air_temperature","mean_air_temperature","mean_relative_humidity","precipitation","sea_surface_temperature"];
 
@@ -205,7 +203,7 @@ exports.getEstacion = function(request, response){
 				descripcion:data.rows[0].descripcion,
 				point:getPoint(data.rows[0].ubicacion)
 			}
-			
+
 			response.render('estacionMeteorologica',datos)
 		}else{
 			console.log('ESTACIONES')
@@ -261,18 +259,14 @@ exports.getMediasNormales= function(request, response){
 	var variable=request.query.variable;
 	var client = new pg.Client(conString);
 	client.connect();
-	var queryString = "SELECT DISTINCT temperature.month,"
+	var queryString = "SELECT DISTINCT month,"
 	+" AVG (CAST (replace("+ variable+ ",',','.')  AS FLOAT))"
-	+" FROM locality,temperature" 
-	//+",humidity"
-	+" WHERE temperature.id_locality=locality.id"
-	//+" and temperature.id_locality=humidity.id_locality"
-	//+" and temperature.year=humidity.year"
-	//+" and temperature.month=humidity.month"
+	+" FROM locality,"+getTabla(variable) 
+	+" WHERE locality.id="+getTabla(variable)+".id_locality"
 	+" and locality.id="+idEstacion
 	+" and "+ variable+" IS NOT NULL"
-	+" GROUP BY temperature.month"
-	+" ORDER BY temperature.month";
+	+" GROUP BY month"
+	+" ORDER BY month";
 	console.log(queryString);
 	client.query(queryString, function(err, data, fields) {
 	    if (err) throw err;
@@ -282,16 +276,12 @@ exports.getMediasNormales= function(request, response){
 	    	result.push(data.rows[i]["avg"])
 	    }
 	    console.log(result)
-	    var queryString2 = "SELECT DISTINCT temperature.year"
-		+" FROM locality,temperature"
-		//+",humidity" 
-		+" WHERE temperature.id_locality=locality.id"
-		//+" and temperature.id_locality=humidity.id_locality"
-		//+" and temperature.year=humidity.year"
-		//+" and temperature.month=humidity.month"
+	    var queryString2 = "SELECT DISTINCT year"
+		+" FROM locality,"+getTabla(variable) 
+		+" WHERE locality.id="+getTabla(variable)+".id_locality"
 		+" and locality.id="+idEstacion
 		+" and "+ variable+" IS NOT NULL"
-		+" ORDER BY temperature.year";
+		+" ORDER BY year";
 		client.query(queryString2, function(err, data2, fields) {
 		    if (err) throw err;
 		    console.log(data2.rows)
@@ -310,16 +300,54 @@ exports.getMediasMensuales= function(request, response){
 	client.connect();
 	var queryString = "SELECT DISTINCT temperature.month,"
 	+" CAST (replace("+ variable+ ",',','.')  AS FLOAT) AS "+variable
-	+" FROM locality,temperature"
-	//+",humidity" 
-	+" WHERE temperature.id_locality=locality.id"
-	//+" and temperature.id_locality=humidity.id_locality"
-	//+" and temperature.year=humidity.year"
-	//+" and temperature.month=humidity.month"
+	+" FROM locality,"+getTabla(variable) 
+	+" WHERE locality.id="+getTabla(variable)+".id_locality"
 	+" and locality.id="+idEstacion
-	+" and temperature.year="+year
+	+" and year="+year
 	+" and "+ variable+" IS NOT NULL"
-	+" ORDER BY temperature.month";
+	+" ORDER BY month";
+	console.log(queryString);
+	client.query(queryString, function(err, data, fields) {
+	    if (err) throw err;
+	    console.log(data.rows)
+	    response.json({data:data.rows}); 
+		
+	});
+}
+
+exports.getAniosTemperatura= function(request, response){
+	var idEstacion=request.query.id;
+	var variable=request.query.variable;
+	var client = new pg.Client(conString);
+	client.connect();
+	var queryString = "SELECT DISTINCT year"
+	+" FROM locality,temperature"
+	+" WHERE locality.id=temperature.id_locality"
+	+" and locality.id="+idEstacion
+	+" ORDER BY year";
+	console.log(queryString);
+	client.query(queryString, function(err, data, fields) {
+	    if (err) throw err;
+	    console.log(data.rows)
+		response.json({years:data.rows});
+		
+	});
+}
+
+exports.getTemperaturas= function(request, response){
+	var idEstacion=request.query.id;
+	var year=request.query.year;
+	var client = new pg.Client(conString);
+	client.connect();
+	var queryString = "SELECT DISTINCT temperature.month,"
+	+" CAST (replace(max_air_temperature,',','.')  AS FLOAT) AS max_air_temperature,"
+	+" CAST (replace(min_air_temperature,',','.')  AS FLOAT) AS min_air_temperature,"
+	+" CAST (replace(mean_air_temperature,',','.')  AS FLOAT) AS mean_air_temperature"
+	+" FROM locality,temperature"
+	+" WHERE locality.id=temperature.id_locality"
+	+" and locality.id="+idEstacion
+	+" and year="+year
+	+" ORDER BY month";
 	console.log(queryString);
 	client.query(queryString, function(err, data, fields) {
 	    if (err) throw err;
@@ -329,6 +357,9 @@ exports.getMediasMensuales= function(request, response){
 		
 	});
 }
+
+
+
 
 function generarCSV(Datos) {
     var texto = '';
@@ -375,6 +406,7 @@ exports.getDataEstacion= function(request, response){
 		//response.json({data:csv});
 	});
 }
+
 
 
 

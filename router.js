@@ -19,6 +19,8 @@ module.exports = function(app){
 	app.get('/estaciones', ControllerDatosMeteorologicos.getEstaciones);
 	app.get('/getMediasNormales', ControllerDatosMeteorologicos.getMediasNormales);
 	app.get('/getMediasMensuales', ControllerDatosMeteorologicos.getMediasMensuales);
+	app.get('/getAniosTemperatura', ControllerDatosMeteorologicos.getAniosTemperatura);
+	app.get('/getTemperaturas', ControllerDatosMeteorologicos.getTemperaturas);
 	//ControllerModificarInicio
 	app.get('/configuraInicio', ControllerModificarInicio.modificarInicio);
 	//ControllerUsuarios

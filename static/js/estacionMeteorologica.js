@@ -104,7 +104,7 @@ function pedirMediasMensuales(year){
 
 }
 
-function clickElementoAnio(event){
+function clickElementoAnioMedias(event){
 	console.log(event.target);
 	console.log(event.target.dataset.codigo);
 	var anio=event.target.dataset.codigo;
@@ -112,12 +112,12 @@ function clickElementoAnio(event){
     pedirMediasMensuales(anio);
 }
 
-function agregarAnios(years){
+function agregarAnios(years,click){
 	var drop=$('#dropDownAnio')
 	drop.empty()
 	anioSelected.innerHTML=".... <span class='caret'></span>";
 	for (var i = 0; i < years.length; i++) {
-		drop.append('<li ><a class="elementoAnio" onclick="clickElementoAnio(event);" data-codigo="'+years[i].year+'">'+years[i].year+'</a></li>');
+		drop.append('<li ><a class="elementoAnio" onclick="'+click+'(event);" data-codigo="'+years[i].year+'">'+years[i].year+'</a></li>');
 	}
 }
 
@@ -127,15 +127,18 @@ function mostrarMediasNormales(event){
 	mediasNormales=conver.data;
 	if(mediasNormales.length!=0){
 		mostrar('charts_wrapper');
+		mostrar('containerMediasNormales');
 		ocultar('containerMediasMensuales');
 		ocultar('containerAnomalias');
+		ocultar('containerComparacion');
 		$('.botonSelected').removeClass("botonSelected");
 		variableSeleccionada.className="botonSelected";
+		contenedorAnios.className="dropup";
 		$('#canvasMediasNormales').remove();
 		$('#containerMediasNormales').append('<canvas id="canvasMediasNormales" width=1000 height=400 style="width:1000px; height:400px;" width="1000px" height="400px"></canvas>');
 		canvas=$('#canvasMediasNormales')[0];
-		dibujarGrafica(canvas,mediasNormales,labelsMeses)
-		agregarAnios(conver.years)
+		dibujarGrafica(canvas,mediasNormales,labelsMeses);
+		agregarAnios(conver.years,"clickElementoAnioMedias");
 	}else{
 		variable=$('.botonSelected')[0].dataset.variable;
 		alert('No hay datos Disponibles')
@@ -181,14 +184,124 @@ function dibujarGrafica(canvas, datos,etiquetas){
 			responsive: true
 	});
 }
+function mostarTemperaturas(respond){
+	var respond = event.target.responseText;
+	var conver = JSON.parse(respond);
+	temperaturas=conver.data;
+	mostrar('containerComparacion');
+	$('#canvasComparacion').remove();
+	$('#containerComparacion').append('<canvas id="canvasComparacion" width=1000 height=400 style="width:1000px; height:400px;" width="1000px" height="400px"></canvas>');
+	canvas=$('#canvasComparacion')[0];
+	datosTemperaturas={}
+	datosTemperaturas['max_air_temperature']=[];
+	datosTemperaturas['min_air_temperature']=[];
+	datosTemperaturas['mean_air_temperature']=[];	
+	for (var i = 0; i < temperaturas.length; i++) {
+		datosTemperaturas['max_air_temperature'].push(temperaturas[i]['max_air_temperature']);
+		datosTemperaturas['min_air_temperature'].push(temperaturas[i]['min_air_temperature']);
+		datosTemperaturas['mean_air_temperature'].push(temperaturas[i]['mean_air_temperature']);
+		
+	};
+	var lineChartData = {
+		labels : labelsMeses,
+		options: {
+        	legend: {
+            	display: true,
+            	labels: {
+                	fontColor: 'rgb(255, 99, 132)'
+            	}
+        	}
+    	},
+		datasets : [
+			{
+				label: "max_air_temperature",
+				showInLegend: true,
+				fillColor : "rgba(0,0,255,0.2)",
+				strokeColor : "rgba(0,0,255,1)",
+				pointColor : "rgba(0,0,255,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(0,0,200,1)",
+				data : datosTemperaturas['max_air_temperature']
+			},
+			{
+				label: "min_air_temperature",
+				showInLegend: true,
+				fillColor : "rgba(255,0,0,0.2)",
+				strokeColor : "rgba(255,0,0,1)",
+				pointColor : "rgba(255,0,0,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(200,0,0,1)",
+				data : datosTemperaturas['min_air_temperature']
+			},
+			{
+				label: "mean_air_temperature",
+				showInLegend: true,
+				fillColor : "rgba(151,187,205,0.2)",
+				strokeColor : "rgba(151,187,205,1)",
+				pointColor : "rgba(151,187,205,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : datosTemperaturas['mean_air_temperature']
+			}
+		]
 
+	}
+	var ctx =  canvas.getContext("2d");
+	myLine = new Chart(ctx).Line(lineChartData, {
+			responsive: true
+	});
+} 
+
+
+function pedirTemperaturas(year){
+	var url = "/getTemperaturas?id="+idEstacion+"&year="+year;
+	var request = new XMLHttpRequest();
+	request.addEventListener('load',mostarTemperaturas, false);
+	request.open("GET",url, true);
+	request.send(null);
+}
+
+function clickElementoAnioComparar(event){
+	console.log(event.target);
+	console.log(event.target.dataset.codigo);
+	var anio=event.target.dataset.codigo;
+    anioSelected.innerHTML=anio+" <span class='caret'></span>";
+    pedirTemperaturas(anio);
+}
+
+function mostarCompararTemperatura(respond){
+	var respond = event.target.responseText;
+	var conver = JSON.parse(respond);
+	agregarAnios(conver.years,"clickElementoAnioComparar")
+	mostrar('charts_wrapper');
+	ocultar('containerMediasNormales');
+	ocultar('containerMediasMensuales');
+	ocultar('containerAnomalias');
+	ocultar('containerComparacion');
+	$('.botonSelected').removeClass("botonSelected");
+	variable.className="botonSelected";
+	contenedorAnios.className="dropdown";
+}
+function pedirAniosTemperatura(event){
+	variable=event.target;
+	var url = "/getAniosTemperatura?id="+idEstacion;
+	var request = new XMLHttpRequest();
+	request.addEventListener('load',mostarCompararTemperatura, false);
+	request.open("GET",url, true);
+	request.send(null);
+}
 
 function mostrarVariables(){
-	botones.innerHTML="";
-	boton=document.createElement("li");
-	boton.innerHTML="Comparar variables";
-	boton.setAttribute("onclick","mostarCompararVariables(event);");
-	botones.appendChild(boton);
+	if(variables.length>1){
+		botones.innerHTML="";
+		boton=document.createElement("li");
+		boton.innerHTML="Comparar Temperatura";
+		boton.setAttribute("onclick","pedirAniosTemperatura(event);");
+		botones.appendChild(boton);
+	}
 	for (var i = 0; i < variables.length; i++) {
 		boton=document.createElement("li");
 		boton.innerHTML=variables[i].split("_").join(" ");

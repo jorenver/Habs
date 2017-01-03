@@ -46,5 +46,16 @@ exports.getMediasMensuales = function(request, response){
 	db.getMediasMensuales(request,response);
 };
 
+exports.getAniosTemperatura = function(request, response){
+	console.log("getAniosTemperatura");
+	db.getAniosTemperatura(request,response);
+};
+exports.getTemperaturas = function(request, response){
+	console.log("getTemperaturas");
+	db.getTemperaturas(request,response);
+};
+
+
+
 
 
