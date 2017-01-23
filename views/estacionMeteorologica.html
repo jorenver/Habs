@@ -21,7 +21,8 @@
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/estacionMeteorologica.css">
-    <script src="js/Chart.js"></script>
+    <link rel="stylesheet" href="css/slideBar.css">
+    <script src="js/Chart_2.js"></script>
     <script src="js/estacionMeteorologica.js"></script>
     <script>
         var idEstacion={{idLocality}};
@@ -62,10 +63,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 sidebar">
-                    <button type="button" class="btn btn-success" id="btnDescargar" onclick="obtenerDatosEstacion();">
+                    <button type="button" class="btn btn-success btnSlideBar"  onclick="obtenerDatosEstacion();">
                         <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Descargar Datos
                     </button>
-                    <button type="button" class="btn btn-primary" id="btnDescargar" onclick="mostrarInformacionEstacion(event);">
+                    <button type="button" class="btn btn-primary btnSlideBar" onclick="mostrarInformacionEstacion(event);">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Informacion
                     </button>
 
@@ -89,7 +90,7 @@
                         </div>
 
                         
-                        <div class="row"> 
+                        <div class="row" style="margin-top: 20px;"> 
                             <div class="row" id="year_content" >
                                 <div class="col-md-6 text-right">
                                     <h3 style="margin: 2px;">Año:<h3>

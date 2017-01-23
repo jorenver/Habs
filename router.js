@@ -1,5 +1,6 @@
 var ControllerIndex = require('./controller/ControllerIndex');
 var ControllerDatosMeteorologicos = require('./controller/ControllerDatosMeteorologicos');
+var ControllerDatosEspaciales = require('./controller/ControllerDatosEspaciales');
 var ControllerModificarInicio = require('./controller/ControllerModificarInicio');
 var ControllerUsuarios = require('./controller/ControllerUsuarios');
 
@@ -21,6 +22,8 @@ module.exports = function(app){
 	app.get('/getMediasMensuales', ControllerDatosMeteorologicos.getMediasMensuales);
 	app.get('/getAniosTemperatura', ControllerDatosMeteorologicos.getAniosTemperatura);
 	app.get('/getTemperaturas', ControllerDatosMeteorologicos.getTemperaturas);
+	//ControllerDatosEspaciales
+	app.get('/datosEspaciales', ControllerDatosEspaciales.getDatosEspaciales);
 	//ControllerModificarInicio
 	app.get('/configuraInicio', ControllerModificarInicio.modificarInicio);
 	//ControllerUsuarios

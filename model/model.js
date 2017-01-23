@@ -225,6 +225,7 @@ function ejecutarQuery(index,idEstacion,variablesUtilizadas,response){
 	+" WHERE "+getTabla(variable)+".id_locality=locality.id"
 	+" and locality.id="+idEstacion
 	+" and "+ variable+" IS NOT NULL"
+	console.log("query: ",queryString)
 	client.query(queryString, function(err, data, fields) {
     	if (err) throw err;
     	if(data.rows.length>=1){
@@ -298,7 +299,7 @@ exports.getMediasMensuales= function(request, response){
 	var year=request.query.year;
 	var client = new pg.Client(conString);
 	client.connect();
-	var queryString = "SELECT DISTINCT temperature.month,"
+	var queryString = "SELECT DISTINCT "+getTabla(variable)+".month,"
 	+" CAST (replace("+ variable+ ",',','.')  AS FLOAT) AS "+variable
 	+" FROM locality,"+getTabla(variable) 
 	+" WHERE locality.id="+getTabla(variable)+".id_locality"

@@ -69,7 +69,7 @@ function mostrarAnomalias(MedNor,MedMen){
 	$('#canvasAnomalias').remove();
 	$('#containerAnomalias').append('<canvas id="canvasAnomalias" width=1000 height=400 style="width:1000px; height:400px;" width="1000px" height="400px"></canvas>');
 	canvas=$('#canvasAnomalias')[0];
-	dibujarGrafica(canvas,anomalias,labelsMeses);
+	dibujarGrafica(canvas,anomalias,labelsMeses,variable);
 }
 
 
@@ -87,7 +87,7 @@ function mostrarMediasMensuales(event){
 			dato=datosMediasMensuales[i];
 			mediasMensuales[dato.month-1]=dato[variable];
 		}
-		dibujarGrafica(canvas,mediasMensuales,labelsMeses);
+		dibujarGrafica(canvas,mediasMensuales,labelsMeses,variable);
 		mostrarAnomalias(mediasNormales,mediasMensuales)
 	}else{
 		alert('No hay datos Disponibles')
@@ -137,7 +137,7 @@ function mostrarMediasNormales(event){
 		$('#canvasMediasNormales').remove();
 		$('#containerMediasNormales').append('<canvas id="canvasMediasNormales" width=1000 height=400 style="width:1000px; height:400px;" width="1000px" height="400px"></canvas>');
 		canvas=$('#canvasMediasNormales')[0];
-		dibujarGrafica(canvas,mediasNormales,labelsMeses);
+		dibujarGrafica(canvas,mediasNormales,labelsMeses,variable);
 		agregarAnios(conver.years,"clickElementoAnioMedias");
 	}else{
 		variable=$('.botonSelected')[0].dataset.variable;
@@ -162,27 +162,53 @@ function pedirMediasNormales(event){
 
 
 
-function dibujarGrafica(canvas, datos,etiquetas){
-	var lineChartData = {
-		labels : etiquetas,
-		datasets : [
-			{
-				label: "My First dataset",
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : datos
-			}
-		]
-
-	}
+function dibujarGrafica(canvas, datos,etiquetas,nombreVariable){
 	var ctx =  canvas.getContext("2d");
-	myLine = new Chart(ctx).Line(lineChartData, {
-			responsive: true
+	var data = {
+	    labels: etiquetas,
+	    datasets: [
+	        {
+	            label: nombreVariable.split("_").join(" "),
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(75,192,192,0.4)",
+	            borderColor: "rgba(75,192,192,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(75,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            data: datos,
+	            spanGaps: false,
+	        }
+	    ]
+	};
+
+	options = {
+	  scales: {
+	    xAxes: [{
+	      scaleLabel: {
+	        display: true,
+	        labelString: 'Meses'
+	      }
+	    }]
+	  }
+	};
+
+	var myLineChart = new Chart(ctx, {
+    	type: 'line',
+    	data: data,
+    	options: options
 	});
+	
 }
 function mostarTemperaturas(respond){
 	var respond = event.target.responseText;
@@ -202,56 +228,94 @@ function mostarTemperaturas(respond){
 		datosTemperaturas['mean_air_temperature'].push(temperaturas[i]['mean_air_temperature']);
 		
 	};
-	var lineChartData = {
-		labels : labelsMeses,
-		options: {
-        	legend: {
-            	display: true,
-            	labels: {
-                	fontColor: 'rgb(255, 99, 132)'
-            	}
-        	}
-    	},
-		datasets : [
-			{
-				label: "max_air_temperature",
-				showInLegend: true,
-				fillColor : "rgba(0,0,255,0.2)",
-				strokeColor : "rgba(0,0,255,1)",
-				pointColor : "rgba(0,0,255,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(0,0,200,1)",
-				data : datosTemperaturas['max_air_temperature']
-			},
-			{
-				label: "min_air_temperature",
-				showInLegend: true,
-				fillColor : "rgba(255,0,0,0.2)",
-				strokeColor : "rgba(255,0,0,1)",
-				pointColor : "rgba(255,0,0,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(200,0,0,1)",
-				data : datosTemperaturas['min_air_temperature']
-			},
-			{
-				label: "mean_air_temperature",
-				showInLegend: true,
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : datosTemperaturas['mean_air_temperature']
-			}
-		]
-
-	}
 	var ctx =  canvas.getContext("2d");
-	myLine = new Chart(ctx).Line(lineChartData, {
-			responsive: true
+	var data = {
+	    labels: labelsMeses,
+	    datasets: [
+	        {
+	            label: "max air temperature",
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(75,192,192,0.4)",
+	            borderColor: "rgba(75,192,192,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(75,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            data: datosTemperaturas['max_air_temperature'],
+	            spanGaps: false,
+	        },
+	        {
+	            label: "min air temperature",
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(170, 3, 202,0.4)",
+	            borderColor: "rgba(170, 3, 202,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(170, 3, 202,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(170, 3, 202,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            data: datosTemperaturas['min_air_temperature'],
+	            spanGaps: false,
+	        },
+	        {
+	            label: "mean air temperature",
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(0, 253, 78, 0.4)",
+	            borderColor: "rgba(0, 253, 78,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(0, 253, 78,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(0, 253, 78,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            data: datosTemperaturas['mean_air_temperature'],
+	            spanGaps: false,
+	        }
+	    ]
+	};
+
+	options = {
+	  scales: {
+	    xAxes: [{
+	      scaleLabel: {
+	        display: true,
+	        labelString: 'Meses'
+	      }
+	    }]
+	  }
+	};
+
+	var myLineChart = new Chart(ctx, {
+    	type: 'line',
+    	data: data,
+    	options: options
 	});
 } 
 
@@ -298,7 +362,7 @@ function mostrarVariables(){
 	if(variables.length>1){
 		botones.innerHTML="";
 		boton=document.createElement("li");
-		boton.innerHTML="Comparar Temperatura";
+		boton.innerHTML="comparar temperatura";
 		boton.setAttribute("onclick","pedirAniosTemperatura(event);");
 		botones.appendChild(boton);
 	}
